@@ -1,0 +1,23 @@
+[project]
+name = "specdec-adaptive-gamma"
+version = "0.1.0"
+description = "Speculative decoding re-implementation with an adaptive draft-length controller"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["torch", "transformers"]
+
+[project.scripts]
+specdec = "specdec.cli:main"
+
+[dependency-groups]
+dev = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/specdec"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
