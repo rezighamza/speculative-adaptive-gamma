@@ -29,3 +29,14 @@ def test_gamma_within_bounds():
 def test_higher_draft_cost_prefers_shorter_drafts():
     cheap, costly = AdaptiveGamma(cost_ratio=0.05), AdaptiveGamma(cost_ratio=0.8)
     assert cheap.gamma() >= costly.gamma()
+
+
+import pytest
+
+def test_adaptive_gamma_invalid_bounds():
+    with pytest.raises(ValueError):
+        AdaptiveGamma(gamma_min=10, gamma_max=2)
+
+def test_adaptive_gamma_invalid_cost():
+    with pytest.raises(ValueError):
+        AdaptiveGamma(cost_ratio=-0.5)
