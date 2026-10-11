@@ -4,6 +4,8 @@ import torch
 
 
 def to_probs(logits, temperature):
+    if temperature < 0:
+        raise ValueError(f'Temperature cannot be negative, got {temperature}')
     if temperature == 0:
         p = torch.zeros_like(logits, dtype=torch.float32)
         return p.scatter_(-1, logits.argmax(-1, keepdim=True), 1.0)

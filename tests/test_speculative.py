@@ -41,3 +41,11 @@ def test_sampling_matches_target_distribution():
         counts[ids[-1]] += 1
     expected = torch.softmax(target(PROMPT)[-1], -1)
     assert (counts / counts.sum() - expected).abs().max() < 0.05
+
+
+import pytest
+from specdec.sampling import to_probs
+
+def test_negative_temperature_raises():
+    with pytest.raises(ValueError):
+        to_probs(torch.randn(1, 10), -1.0)
