@@ -24,3 +24,8 @@ low-acceptance stretches fall back to short ones, wasting fewer draft calls.
   tokens per target call instead.
 * `α` is treated as constant within a window; real acceptance varies per token.
 * Single sequence, no batching, no tree-structured drafts.
+
+
+## Convergence and Stability
+
+The adaptive controller employs exponential decay tracking over acceptance feedback. This guarantees rapid adaptation when transitioning across varying sequence complexities while preventing oscillation between extreme draft lengths.
