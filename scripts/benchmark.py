@@ -24,6 +24,7 @@ def main():
     p.add_argument("--max_new", type=int, default=64)
     p.add_argument("--temperature", type=float, default=0.0)
     p.add_argument("--cost_ratio", type=float, default=0.3)
+    p.add_argument("--seed", type=int, default=0, help="Random generator seed")
     a = p.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -36,7 +37,7 @@ def main():
         tpc, acc, gam = [], [], []
         for text in PROMPTS:
             prompt = tok(text, return_tensors="pt").input_ids[0].to(device)
-            gen = torch.Generator(device=device).manual_seed(0)
+            gen = torch.Generator(device=device).manual_seed(a.seed)
             _, s = speculative_generate(target, draft, prompt, a.max_new, make(), a.temperature, gen)
             tpc.append(s.tokens_per_target_call); acc.append(s.acceptance_rate); gam.append(s.mean_gamma)
         n = len(PROMPTS)
