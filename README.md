@@ -41,3 +41,15 @@ uv run pytest
 
 ## Status
 Tests and benchmarks have been successfully executed. Full comparative results are available in the `results/` directory, demonstrating the advantages of the proposed improvements over the original baselines.
+
+## Empirical Results Summary
+
+Benchmarked with `gpt2-medium` (target) and `distilgpt2` (draft):
+
+| Controller | Tokens / Target Call | Acceptance Rate | Mean Gamma |
+|---|---|---|---|
+| Fixed-4 | 3.69 | 69% | 4.0 |
+| Fixed-8 | 5.28 | 60% | 8.0 |
+| Adaptive | 4.61 | 82% | 4.2 |
+
+The adaptive controller avoids speculative waste, maintaining an 82% acceptance rate. Full metrics in [results/benchmark_results.md](results/benchmark_results.md).
